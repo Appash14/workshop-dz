@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Les prompts du jour</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.92em'%20font-size%3D'92'%3E%F0%9F%94%90%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
+
+<style>
+  :root {
+    --ground: #eef0ec;
+    --surface: #f9faf8;
+    --locked: #e4e8e2;
+    --ink: #161917;
+    --ink-soft: #4e554f;
+    --ink-faint: #838b84;
+    --rule: #d5d9d3;
+    --rule-strong: #bcc2ba;
+    --accent: #1e5a48;
+    --accent-soft: #dce9e2;
+    --accent-ink: #1e5a48;
+    --signal: #a03a22;
+    --bar: rgba(238, 240, 236, 0.93);
+
+    --sans: "Archivo", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --cond: "Archivo Narrow", "Archivo", "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-dz="light"]) {
+      --ground: #101311;
+      --surface: #191d1b;
+      --locked: #161a18;
+      --ink: #e9ece7;
+      --ink-soft: #a7afa8;
+      --ink-faint: #757d76;
+      --rule: #272c28;
+      --rule-strong: #3a413b;
+      --accent: #7cc3a6;
+      --accent-soft: #1a2620;
+      --accent-ink: #8ed3b6;
+      --signal: #e39377;
+      --bar: rgba(16, 19, 17, 0.93);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"]:not([data-dz="light"]), :root[data-dz="dark"] {
+    --ground: #101311;
+    --surface: #191d1b;
+    --locked: #161a18;
+    --ink: #e9ece7;
+    --ink-soft: #a7afa8;
+    --ink-faint: #757d76;
+    --rule: #272c28;
+    --rule-strong: #3a413b;
+    --accent: #7cc3a6;
+    --accent-soft: #1a2620;
+    --accent-ink: #8ed3b6;
+    --signal: #e39377;
+    --bar: rgba(16, 19, 17, 0.93);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-inline: clamp(18px, 3vw, 44px);
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding-block: clamp(30px, 5vh, 54px) 0; }
+
+  h1 {
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .lede {
+    color: var(--ink-soft);
+    margin: 12px 0 0;
+    max-width: 46ch;
+    font-size: 17px;
+  }
+
+  /* les 4 gestes, bandeau */
+
+  .gestes {
+    margin-top: clamp(26px, 4vh, 40px);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-block: 18px 20px;
+  }
+
+  .gestes h2 {
+    font-family: var(--cond);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 14px;
+  }
+
+  .gestes ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: g;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px 26px;
+  }
+
+  .gestes li {
+    counter-increment: g;
+    position: relative;
+    padding-left: 32px;
+    font-size: 16px;
+    line-height: 1.32;
+  }
+
+  .gestes li::before {
+    content: "0" counter(g);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    color: var(--accent-ink);
+  }
+
+  .gestes li b { font-weight: 600; display: block; }
+  .gestes li span { color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- barre de code, collante ---------- */
+
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 8;
+    background: var(--bar);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    margin-top: 28px;
+  }
+
+  .rail-in {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-inline: clamp(18px, 3vw, 44px);
+    padding-block: 12px;
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 28px);
+    flex-wrap: wrap;
+  }
+
+  .pips { display: flex; align-items: center; gap: 5px; }
+
+  .pip {
+    width: 26px;
+    height: 7px;
+    border-radius: 1px;
+    background: var(--rule-strong);
+    transition: background 300ms ease;
+  }
+
+  .pip.on { background: var(--accent); }
+
+  .count {
+    font-family: var(--cond);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .codebox { display: flex; align-items: center; gap: 6px 10px; margin-left: auto; flex-wrap: wrap; }
+
+  .codebox label {
+    font-family: var(--cond);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  input[type="text"] {
+    width: 122px;
+    font-family: var(--cond);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-indent: 0.26em;
+    text-align: center;
+    color: var(--ink);
+    background: var(--surface);
+    border: 2px solid var(--rule-strong);
+    border-radius: 3px;
+    padding: 5px 8px;
+  }
+
+  input[type="text"]:focus { outline: none; border-color: var(--accent); }
+  input.shake { animation: shake 320ms ease-in-out; border-color: var(--signal); }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-7px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(3px); }
+  }
+
+  .codemsg {
+    font-family: var(--cond);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--accent-ink);
+    max-width: 42ch;
+  }
+
+  .codemsg.bad { color: var(--signal); }
+
+  /* témoin de liaison: discret, mais visible si on le cherche */
+  .lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--cond);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .lien i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rule-strong);
+    flex: none;
+  }
+
+  .lien.on i { background: var(--accent); }
+  .lien.off i { background: var(--signal); }
+  .lien.off { color: var(--signal); }
+
+  .reset {
+    font-family: var(--cond);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    background: none;
+    border: none;
+    padding: 4px 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+
+  .reset:hover { color: var(--ink); }
+
+  /* ---------- les étapes ---------- */
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-block: 26px 90px;
+  }
+
+  .step {
+    border: 1px solid var(--rule-strong);
+    background: var(--surface);
+    border-left: 4px solid var(--rule-strong);
+    transition: border-color 350ms ease, background 350ms ease;
+  }
+
+  .step.locked { background: var(--locked); border-style: dashed; border-left-style: solid; }
+  .step.open { border-left-color: var(--accent); }
+  .step.flash { border-color: var(--accent); }
+
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 26px);
+    padding: 16px clamp(16px, 2.2vw, 26px);
+  }
+
+  .step.open .step-head { border-bottom: 1px solid var(--rule); }
+
+  .step-n {
+    font-family: var(--cond);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--rule-strong);
+    font-variant-numeric: tabular-nums;
+    flex: 0 0 auto;
+    min-width: 1.7em;
+  }
+
+  .step.open .step-n { color: var(--accent-ink); }
+
+  .step-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: grid;
+    align-items: center;
+  }
+
+  .step-label > * { grid-area: 1 / 1; }
+
+  .step-title {
+    font-family: var(--cond);
+    font-size: clamp(20px, 2.3vw, 27px);
+    font-weight: 700;
+    line-height: 1.12;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+
+  .step.open .step-title { opacity: 1; }
+
+  .scramble {
+    font-family: var(--cond);
+    font-size: clamp(19px, 2.2vw, 26px);
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+    line-height: 1.12;
+    word-break: break-word;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 320ms ease, color 320ms ease;
+  }
+
+  .step.open .scramble { opacity: 0; }
+  .step.opening .scramble { color: var(--accent-ink); }
+
+  .step-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+
+  .step-state {
+    font-family: var(--cond);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .step.open .step-state { color: var(--accent-ink); }
+
+  .lock {
+    width: 21px;
+    height: 21px;
+    display: block;
+    color: var(--ink-faint);
+    opacity: 1;
+    transition: opacity 320ms ease, color 320ms ease;
+  }
+
+  .step.open .lock { opacity: 0; }
+  .step.opening .lock { color: var(--accent-ink); }
+
+  /* corps: la hauteur s'anime de 0fr à 1fr */
+
+  .step-reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .step.open .step-reveal { grid-template-rows: 1fr; }
+
+  .step-body {
+    overflow: hidden;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 44px);
+    padding-inline: clamp(16px, 2.2vw, 26px);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 340ms ease 140ms, transform 340ms ease 140ms, padding-block 480ms ease;
+    padding-block: 0;
+  }
+
+  .step.open .step-body {
+    opacity: 1;
+    transform: translateY(0);
+    padding-block: clamp(18px, 2.4vw, 28px) clamp(22px, 3vw, 30px);
+  }
+
+  @media (max-width: 760px) {
+    .step-body { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .main > p { margin: 0; }
+  .main > p + p { margin-top: 10px; }
+
+  .main ul, .main ol {
+    margin: 12px 0 0;
+    padding-left: 1.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .main li::marker { color: var(--accent-ink); }
+
+  /* liens à ouvrir */
+
+  .links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 10px;
+  }
+
+  .linkcard {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid var(--rule-strong);
+    background: var(--ground);
+    padding: 13px 15px 14px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .linkcard:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .linkcard:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .linkcard i {
+    font-style: normal;
+    font-family: var(--cond);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .linkcard b { font-family: var(--cond); font-size: 19px; font-weight: 700; line-height: 1.15; }
+  .linkcard span { font-size: 14px; color: var(--ink-soft); word-break: break-all; }
+
+  a.plain { color: var(--accent-ink); font-weight: 600; text-underline-offset: 2px; }
+
+  .exemples {
+    border-left: 2px dashed var(--rule-strong);
+    padding-left: 15px;
+    margin-top: 10px;
+  }
+
+  .exemples .lab {
+    font-family: var(--cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .exemples q {
+    display: block;
+    font-size: 15.5px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+    quotes: "« " " »";
+  }
+
+  .exemples q:last-child { margin-bottom: 0; }
+
+  .stepnum {
+    font-family: var(--cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin: 22px 0 10px !important;
+  }
+
+  .main > .stepnum:first-child { margin-top: 0 !important; }
+
+  /* bloc prompt */
+
+  .promptblock { border: 1px solid var(--rule); background: var(--ground); }
+
+  .promptbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 10px 8px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .promptbar span {
+    font-family: var(--cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .prompt {
+    margin: 0;
+    padding: 18px 20px;
+    font-size: clamp(17px, 1.5vw, 19px);
+    line-height: 1.5;
+  }
+
+  .prompt mark {
+    background: var(--accent);
+    color: var(--ground);
+    padding: 0 0.22em;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  button.copy {
+    font-family: var(--cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ground);
+    background: var(--accent);
+    border: none;
+    border-radius: 3px;
+    padding: 7px 16px;
+    cursor: pointer;
+  }
+
+  button.copy:hover { opacity: 0.86; }
+  button.copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* colonne latérale */
+
+  .aside {
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    align-self: start;
+  }
+
+  .aside b { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .aside { border-left: none; border-top: 2px solid var(--accent); padding-left: 0; padding-top: 14px; }
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-block: 16px 40px;
+    font-family: var(--cond);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step, .pip { transition: none; }
+    .step.open .step-body { animation: none; }
+    input.shake { animation: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>Les prompts du jour</h1>
+    <p class="lede">Garde cette page ouverte toute la journée. Les étapes se débloquent une par une, avec le code affiché à l'écran.</p>
+  </header>
+
+  <section class="gestes">
+    <h2>Les 4 gestes, valables toute la journée</h2>
+    <ol>
+      <li><b>Ouvrir son espace de travail</b><span>Une session sur Claude Code, ou l'app ChatGPT côté Codex.</span></li>
+      <li><b>Décrire ce qu'on veut</b><span>En français, une ou deux phrases.</span></li>
+      <li><b>Regarder le résultat</b><span>Pas lire ce qu'il raconte. Regarder la page.</span></li>
+      <li><b>Dire ce qui ne va pas, et redemander</b><span>Comme à un prestataire.</span></li>
+    </ol>
+  </section>
+</div>
+
+<div class="rail">
+  <div class="rail-in">
+    <div class="pips" id="pips" aria-hidden="true"></div>
+    <span class="count" id="count">0 / 8 débloqué</span>
+    <div class="codebox">
+      <label for="code">Code</label>
+      <input type="text" id="code" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="000" aria-describedby="codemsg">
+      <span class="codemsg" id="codemsg" role="status"></span>
+      <span class="lien" id="lien" title="Liaison avec la salle"><i></i><b>liaison…</b></span>
+      <button type="button" class="reset" id="toutouvrir">Tout déverrouiller</button>
+      <button type="button" class="reset" id="reset">Tout reverrouiller</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="steps" id="steps">
+
+    <article class="step locked" data-code="100">
+      <div class="step-head">
+        <span class="step-n">01</span>
+        <span class="step-label">
+          <span class="step-title">S'équiper</span>
+          <span class="scramble" data-word="S'équiper"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <p class="stepnum">1 · Les deux comptes, pour tout le monde</p>
+          <div class="links">
+            <a class="linkcard" href="https://github.com/signup" target="_blank" rel="noopener">
+              <i>Bouton Google</i>
+              <b>GitHub</b>
+              <span>github.com/signup</span>
+            </a>
+            <a class="linkcard" href="https://vercel.com/signup" target="_blank" rel="noopener">
+              <i>Bouton Google</i>
+              <b>Vercel</b>
+              <span>vercel.com/signup</span>
+            </a>
+          </div>
+
+          <p class="stepnum">2 · Ton outil, au choix</p>
+          <div class="links">
+            <a class="linkcard" href="https://chatgpt.com/fr-FR/download/" target="_blank" rel="noopener">
+              <i>La plupart d'entre vous</i>
+              <b>Codex, dans l'app ChatGPT</b>
+              <span>chatgpt.com/fr-FR/download · rien à demander à l'informatique</span>
+            </a>
+            <a class="linkcard" href="https://claude.ai/code" target="_blank" rel="noopener">
+              <i>Si tu as un abonnement Claude payant</i>
+              <b>Claude Code</b>
+              <span>claude.ai/code · tu connectes ton GitHub</span>
+            </a>
+          </div>
+
+          <p class="stepnum">3 · Ajouter les plugins GitHub et Vercel</p>
+          <p>Dans l'app, menu de gauche, <b>Plugins</b>. Tu cherches GitHub, tu cliques le +, puis tu recommences avec Vercel. Rien ne l'indique, et c'est pourtant ce qui permet à l'agent de créer ton dépôt et de le brancher sur Vercel tout seul, simplement parce que tu le lui demandes.</p>
+        </div>
+        <div class="aside"><b>À chaque fois, le bouton Google.</b> Aucun mot de passe à inventer, aucun mail de vérification à attendre. On crée le compte Vercel maintenant et on s'arrête là, on ne s'en sert que ce midi.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="101">
+      <div class="step-head">
+        <span class="step-n">02</span>
+        <span class="step-label">
+          <span class="step-title">Ta page de départ</span>
+          <span class="scramble" data-word="Ta page de départ"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <div class="promptblock">
+            <div class="promptbar"><span>À copier tel quel</span><button class="copy" type="button" data-copy="#p101">Copier</button></div>
+            <p class="prompt" id="p101">Fais-moi une page web qui me présente. Il faut mon prénom (<mark>PRÉNOM</mark>), quelques phrases sur moi (invente s'il faut) et un moyen de me contacter (invente aussi). Une seule page. Ne me pose pas de question, fais des choix à ma place, je corrigerai après.</p>
+          </div>
+        </div>
+        <div class="aside"><b>Un seul mot à changer:</b> remplace PRÉNOM par le tien avant d'envoyer. Le reste, il l'invente, le contenu n'a aucune importance aujourd'hui.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="202">
+      <div class="step-head">
+        <span class="step-n">03</span>
+        <span class="step-label">
+          <span class="step-title">Le style, trois demandes</span>
+          <span class="scramble" data-word="Le style, trois demandes"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <p>Une demande à la fois. On regarde le résultat, puis on passe à la suivante.</p>
+          <ol>
+            <li>
+              Une demande sur <b>les couleurs</b>.
+              <div class="exemples">
+                <span class="lab">Par exemple</span>
+                <q>Je veux des couleurs sombres, bleu nuit, avec de l'orange pour les boutons.</q>
+                <q>Mets tout en noir et blanc, sauf mon prénom en rouge.</q>
+              </div>
+            </li>
+            <li>
+              Une demande sur <b>la mise en page</b>, où sont les choses sur l'écran.
+              <div class="exemples">
+                <span class="lab">Par exemple</span>
+                <q>Mets mon prénom tout en haut, très gros, et le reste en dessous.</q>
+                <q>Je veux deux colonnes: le texte à gauche, le contact à droite.</q>
+              </div>
+            </li>
+            <li>
+              Une demande <b>libre</b>, ce que tu as envie de voir.
+              <div class="exemples">
+                <span class="lab">Par exemple</span>
+                <q>Ajoute une photo de profil ronde.</q>
+                <q>Mets une phrase qui change à chaque fois qu'on recharge la page.</q>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <div class="aside"><b>Les exemples sont là pour démarrer, pas pour être copiés.</b> Tu en prends un et tu le tords à ta sauce, ou tu inventes le tien. C'est exactement là que tu apprends à demander.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="303">
+      <div class="step-head">
+        <span class="step-n">04</span>
+        <span class="step-label">
+          <span class="step-title">Une chose qui bouge</span>
+          <span class="scramble" data-word="Une chose qui bouge"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <p>Demande-lui quelque chose qui réagit quand on touche à la page.</p>
+          <div class="exemples">
+            <span class="lab">Par exemple</span>
+            <q>Quand la souris passe sur un bouton, il change de couleur.</q>
+            <q>Ajoute un bouton qui fait apparaître un texte caché.</q>
+          </div>
+        </div>
+        <div class="aside"><b>Toujours une seule chose à la fois.</b> Deux demandes dans la même phrase, et tu ne sais plus laquelle a marché.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="404">
+      <div class="step-head">
+        <span class="step-n">05</span>
+        <span class="step-label">
+          <span class="step-title">Casser ta page</span>
+          <span class="scramble" data-word="Casser ta page"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <div class="promptblock">
+            <div class="promptbar"><span>Tout le monde envoie la même</span><button class="copy" type="button" data-copy="#p404">Copier</button></div>
+            <p class="prompt" id="p404">Ajoute un compte à rebours, un carrousel de photos, un formulaire de contact, une carte, et fais que tout bouge en permanence.</p>
+          </div>
+        </div>
+        <div class="aside"><b>Regarde bien ta page avant d'envoyer.</b> Tu vas vouloir la retrouver. C'est la seule fois de la journée où on te demande de rater quelque chose.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="405">
+      <div class="step-head">
+        <span class="step-n">06</span>
+        <span class="step-label">
+          <span class="step-title">La réparer</span>
+          <span class="scramble" data-word="La réparer"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <div class="promptblock">
+            <div class="promptbar"><span>La phrase qui sauve</span><button class="copy" type="button" data-copy="#p405">Copier</button></div>
+            <p class="prompt" id="p405">Reviens en arrière, je veux la version d'avant.</p>
+          </div>
+        </div>
+        <div class="aside"><b>Retiens celle-là.</b> C'est elle qui te sortira de la plupart des galères de l'après-midi.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="505">
+      <div class="step-head">
+        <span class="step-n">07</span>
+        <span class="step-label">
+          <span class="step-title">Mettre en ligne</span>
+          <span class="scramble" data-word="Mettre en ligne"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <p class="stepnum">Codex · tu le demandes, il le fait</p>
+          <div class="promptblock">
+            <div class="promptbar"><span>Tu ne déposes aucun fichier</span><button class="copy" type="button" data-copy="#p505">Copier</button></div>
+            <p class="prompt" id="p505">Crée un nouveau dépôt GitHub pour ce projet et pousse le code dedans. Ensuite crée un projet Vercel lié à ce dépôt et déploie-le. Quand c'est en ligne, donne-moi l'adresse du site.</p>
+          </div>
+
+          <p class="stepnum">Claude Code · ton code est déjà sur GitHub</p>
+          <ol style="margin-top:0">
+            <li>Ouvrir <a class="plain" href="https://vercel.com/new" target="_blank" rel="noopener">vercel.com/new</a>.</li>
+            <li>Importer ton dépôt.</li>
+            <li>Déployer, et récupérer l'adresse.</li>
+          </ol>
+
+          <p style="margin-top:16px"><b>Puis, pour tout le monde:</b> tu colles ton adresse dans le groupe.</p>
+        </div>
+        <div class="aside"><b>Cette adresse est à toi.</b> Tu peux l'envoyer à qui tu veux, ce soir, depuis ton téléphone. Et à chaque fois que tu changeras ton projet, tu lui demanderas de redéployer, l'adresse ne bougera pas.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="606">
+      <div class="step-head">
+        <span class="step-n">08</span>
+        <span class="step-label">
+          <span class="step-title">La conversation avant de construire</span>
+          <span class="scramble" data-word="La conversation avant de construire"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <p>Ouvre un chat normal, ChatGPT ou Claude, celui que tu utilises déjà tous les jours. Pas Claude Code, pas Codex: le chat simple. Discute de ton idée cinq minutes avec lui, en répondant à trois questions:</p>
+          <ol>
+            <li>Qu'est-ce que la personne voit en arrivant ?</li>
+            <li>Qu'est-ce qu'elle peut faire ?</li>
+            <li>À quoi ça ressemble ?</li>
+          </ol>
+        </div>
+        <div class="aside"><b>Ensuite, donne le résultat de cette discussion à l'agent.</b> Tu viens de transformer une envie en commande.</div>
+      </div>
+    </article>
+
+    <article class="step locked" data-code="707">
+      <div class="step-head">
+        <span class="step-n">09</span>
+        <span class="step-label">
+          <span class="step-title">Ton projet à toi</span>
+          <span class="scramble" data-word="Ton projet à toi"></span>
+        </span>
+        <span class="step-right">
+          <span class="step-state">Fermé</span>
+          <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+      </div>
+      <div class="step-reveal">
+      <div class="step-body">
+        <div class="main">
+          <div class="promptblock">
+            <div class="promptbar"><span>Ta phrase, avant de toucher au clavier</span></div>
+            <p class="prompt">Je veux un <mark>___</mark> qui permet de <mark>___</mark>.</p>
+          </div>
+
+          <div class="exemples">
+            <span class="lab">Des phrases qui marchent</span>
+            <q>Je veux un quiz qui me pose des questions sur le cinéma et qui compte les points.</q>
+            <q>Je veux une page qui liste mes candidatures et où j'en suis avec chacune.</q>
+          </div>
+
+          <p style="margin-top:18px">Ou pars d'une famille de projets:</p>
+          <ul>
+            <li><b>Un site</b> · portfolio, page de présentation, site d'un projet perso</li>
+            <li><b>Une application</b> · suivi d'objectifs, candidatures, convertisseur, minuteur</li>
+            <li><b>Un jeu</b> · casse-briques, snake, quiz, plateforme, clicker</li>
+            <li><b>Une scène 3D</b> · un objet qui tourne, un système solaire, une pièce à visiter</li>
+          </ul>
+        </div>
+        <div class="aside"><b>Une seule règle:</b> ça tourne dans le navigateur, en un ou deux fichiers. C'est ce qui garantit que ça marche ce soir.</div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer>Workshop Claude Code et Codex · Digitalizers</footer>
+</div>
+
+<script>
+  (function () {
+    var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+    var input = document.getElementById("code");
+    var msg = document.getElementById("codemsg");
+    var pips = document.getElementById("pips");
+    var count = document.getElementById("count");
+    var KEY = "dz-prompts-open";
+    var GLYPHS = "▚▞▛▜▟▙█▓▒░#@%&$?!";
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Les neuf codes se devinent: la suite est régulière et ils sont écrits en
+       clair dans cette page. On ne cherche donc pas à les cacher. Une étape ne
+       s'ouvre que quand Tom l'a ouverte depuis son conducteur, et d'ici là son
+       code répond une gentillesse. Si le serveur ne répond pas, on repasse en
+       mode hors ligne et les codes remarchent seuls: l'atelier ne meurt jamais. */
+    /* Les cinq premières sortent dans l'ordre, c'est la montée. Ensuite on
+       pioche dans le stock, mélangé à chaque tour et à chaque page: deux
+       voisins qui comparent leurs écrans ne voient pas la même chose. */
+    var TAQUINE = [
+      "Bien essayé. Pas encore l'heure.",
+      "Non. Toujours pas l'heure.",
+      "Tu insistes. J'aime bien.",
+      "Tom a un tableau avec ton prénom.",
+      "Il le dira, le code. Patience."
+    ];
+
+    var ENCORE = [
+      "Toujours non.",
+      "Ce code existe. Pas maintenant.",
+      "On est deux à s'ennuyer, alors.",
+      "Essaie encore, ça m'occupe.",
+      "Tu as vraiment que ça à faire ?",
+      "Regarde ta page plutôt. Elle est bien.",
+      "Non, mais c'est joliment tenté.",
+      "La patience aussi, c'est une compétence.",
+      "Tu t'entraînes pour quoi, là ?",
+      "Fermé. Comme il y a trois secondes.",
+      "Va voir à côté, tu seras plus utile.",
+      "Je note. Tom lira.",
+      "Encore ? D'accord. Non.",
+      "Ton clavier fatigue avant moi.",
+      "Non. Mais j'admire la constance.",
+      "Ça ne s'use pas. Ça ne s'ouvre pas.",
+      "Tu chauffes. Non, en fait, pas du tout.",
+      "Il arrive. Pas par toi, par Tom."
+    ];
+
+    var RIEN = [
+      "Ce code n'ouvre rien.",
+      "Non plus.",
+      "Toujours pas. Écoute Tom.",
+      "Celui-là non plus n'existe pas.",
+      "Tu tapes au hasard, là."
+    ];
+    var rienN = 0;
+    var taqN = 0;
+    var pioche = null;
+
+    function melange(liste) {
+      var t = liste.slice();
+      for (var i = t.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var x = t[i]; t[i] = t[j]; t[j] = x;
+      }
+      return t;
+    }
+
+    function phraseTaquine() {
+      if (taqN < TAQUINE.length) return TAQUINE[taqN++];
+      taqN++;
+      if (!pioche || pioche.i >= pioche.l.length) pioche = { l: melange(ENCORE), i: 0 };
+      return pioche.l[pioche.i++];
+    }
+
+    var actives = [];
+    var enligne = false;
+    var lien = document.getElementById("lien");
+
+    function peindreLien(etat) {
+      lien.classList.toggle("on", etat === "on");
+      lien.classList.toggle("off", etat === "off");
+      lien.querySelector("b").textContent =
+        etat === "on" ? "en direct" : (etat === "off" ? "hors ligne" : "liaison…");
+    }
+
+    function sonde() {
+      fetch("/api/etat", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          actives = (d && d.ouvertes) || [];
+          enligne = true;
+          peindreLien("on");
+        })
+        .catch(function () {
+          enligne = false;
+          peindreLien("off");
+        });
+    }
+
+    steps.forEach(function () {
+      var d = document.createElement("span");
+      d.className = "pip";
+      pips.appendChild(d);
+    });
+    var pipEls = Array.prototype.slice.call(pips.children);
+
+    function read() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]"); }
+      catch (e) { return []; }
+    }
+    function write(list) {
+      try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+    }
+
+    function noise(word, revealed) {
+      var out = "";
+      for (var i = 0; i < word.length; i++) {
+        if (i < revealed) out += word[i];
+        else if (word[i] === " ") out += " ";
+        else out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }
+      return out;
+    }
+
+    setInterval(function () {
+      steps.forEach(function (s) {
+        if (!s.classList.contains("locked")) return;
+        var el = s.querySelector(".scramble");
+        if (el) el.textContent = noise(el.getAttribute("data-word"), 0);
+      });
+    }, 1100);
+
+    function tally() {
+      var n = 0;
+      steps.forEach(function (s, i) {
+        var on = s.classList.contains("open");
+        if (on) n++;
+        pipEls[i].classList.toggle("on", on);
+      });
+      count.textContent = n + " / " + steps.length + " débloqué" + (n > 1 ? "s" : "");
+    }
+
+    function paintOne(s, on) {
+      s.classList.toggle("locked", !on);
+      s.classList.toggle("open", on);
+      s.querySelector(".step-state").textContent = on ? "Ouvert" : "Fermé";
+      var el = s.querySelector(".scramble");
+      if (el) el.textContent = on ? el.getAttribute("data-word") : noise(el.getAttribute("data-word"), 0);
+      tally();
+    }
+
+    function paint(open) {
+      steps.forEach(function (s) {
+        paintOne(s, open.indexOf(s.getAttribute("data-code")) !== -1);
+      });
+    }
+
+    function say(text, bad) {
+      msg.textContent = text;
+      msg.classList.toggle("bad", !!bad);
+    }
+
+    function unlock(step) {
+      var el = step.querySelector(".scramble");
+      var word = el ? el.getAttribute("data-word") : "";
+      step.classList.add("flash");
+
+      if (calm || !el) {
+        paintOne(step, true);
+        setTimeout(function () { step.classList.remove("flash"); }, 900);
+        return;
+      }
+
+      step.classList.remove("locked");
+      step.classList.add("opening");
+
+      var i = 0;
+      var run = setInterval(function () {
+        i++;
+        el.textContent = noise(word, i);
+        if (i >= word.length) {
+          clearInterval(run);
+          el.textContent = word;
+          setTimeout(function () {
+            step.classList.remove("opening");
+            paintOne(step, true);
+            setTimeout(function () { step.classList.remove("flash"); }, 1100);
+          }, 620);
+        }
+      }, Math.max(34, Math.min(74, 820 / Math.max(word.length, 1))));
+    }
+
+    function refus(texte) {
+      say(texte, true);
+      input.value = "";
+      input.classList.remove("shake");
+      void input.offsetWidth;
+      input.classList.add("shake");
+    }
+
+    function ouvrir(step, texte) {
+      var v = step.getAttribute("data-code");
+      var open = read();
+      if (open.indexOf(v) === -1) { open.push(v); write(open); }
+      if (!step.classList.contains("open")) unlock(step);
+      say(texte || ("Débloqué : " + step.querySelector(".step-title").textContent), false);
+      input.value = "";
+      setTimeout(function () {
+        step.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
+      }, 120);
+    }
+
+    function tryCode(v) {
+      var step = steps.filter(function (s) { return s.getAttribute("data-code") === v; })[0];
+      if (!step) {
+        refus(RIEN[rienN % RIEN.length]);
+        rienN++;
+        return;
+      }
+
+      /* déjà ouverte chez lui: on ne la referme jamais, même si Tom recule */
+      if (read().indexOf(v) !== -1) { ouvrir(step, null); return; }
+
+      /* en ligne et pas encore ouverte par Tom: on taquine, sans jamais céder */
+      if (enligne && actives.indexOf(v) === -1) {
+        refus(phraseTaquine());
+        return;
+      }
+
+      ouvrir(step, null);
+    }
+
+    input.addEventListener("input", function () {
+      var v = input.value.replace(/\D/g, "").slice(0, 3);
+      input.value = v;
+      input.classList.remove("shake");
+      if (v.length === 3) tryCode(v);
+      else say("", false);
+    });
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && input.value.length) tryCode(input.value);
+    });
+
+    /* Pour qui veut tout voir d'un coup, après l'atelier (Tom, 2026-10-05) */
+    document.getElementById("toutouvrir").addEventListener("click", function () {
+      var tous = steps.map(function (s) { return s.getAttribute("data-code"); });
+      write(tous);
+      paint(tous);
+      say("Tout est déverrouillé.", false);
+    });
+
+    document.getElementById("reset").addEventListener("click", function () {
+      write([]);
+      taqN = 0;
+      pioche = null;
+      rienN = 0;
+      paint([]);
+      say("Tout est reverrouillé.", false);
+      window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
+    });
+
+    document.querySelectorAll("button.copy").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var el = document.querySelector(btn.getAttribute("data-copy"));
+        if (!el) return;
+        var text = el.textContent.trim();
+        var done = function () {
+          var old = btn.textContent;
+          btn.textContent = "Copié";
+          setTimeout(function () { btn.textContent = old; }, 1600);
+        };
+        var fallback = function () {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "absolute";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); done(); }
+          catch (e) { btn.textContent = "Sélectionne"; }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, fallback);
+        } else {
+          fallback();
+        }
+      });
+    });
+
+    paint(read());
+
+    /* On n'interroge pas le serveur quand l'onglet est caché: treize pages
+       ouvertes toute la journée, ça compte. */
+    sonde();
+    setInterval(function () { if (!document.hidden) sonde(); }, 5000);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) sonde();
+    });
+  })();
+</script>
+
+<script>
+  /* Thème commun à tous les documents du workshop.
+     T bascule clair / sombre, le choix est partagé entre les pages
+     et se propage aux onglets déjà ouverts. */
+  (function () {
+    var K = "dz-theme";
+    var root = document.documentElement;
+    function lire() { try { return localStorage.getItem(K); } catch (e) { return null; } }
+    function garder(v) { try { localStorage.setItem(K, v); } catch (e) {} }
+    /* data-theme appartient au visualiseur qui affiche la page: on garde le
+       notre, data-dz, sinon notre choix serait ecrase en permanence */
+    function poser(v) {
+      if (v === "dark" || v === "light") root.setAttribute("data-dz", v);
+      else root.removeAttribute("data-dz");
+    }
+    function actuel() {
+      var v = root.getAttribute("data-dz");
+      if (v) return v;
+      var hote = root.getAttribute("data-theme");
+      if (hote) return hote;
+      return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    function basculer() {
+      var v = actuel() === "dark" ? "light" : "dark";
+      poser(v); garder(v);
+    }
+    poser(lire());
+    window.dzTheme = { toggle: basculer, apply: poser };
+    window.addEventListener("storage", function (e) { if (e.key === K) poser(e.newValue); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "t" && e.key !== "T") return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      var tag = (e.target && e.target.tagName) || "";
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target && e.target.isContentEditable)) return;
+      basculer();
+    });
+  })();
+</script>
